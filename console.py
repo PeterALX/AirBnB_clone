@@ -16,8 +16,9 @@ class HBNBCommand(cmd.Cmd):
         print()
         return True
     
-    # def emptyline(self):
-    #     pass
+    def emptyline(self):
+        """Overwrite default behavior to repeat last cmd"""
+        pass
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
