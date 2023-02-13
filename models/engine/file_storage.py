@@ -32,21 +32,37 @@ class FileStorage:
             file.write(jayson)
 
 
+    # def reload(self):
+    #     """ reloads data from disk when app is initialized """
+    #     class_list = {
+    #             "BaseModel":BaseModel
+    #     }
+    #     json_string = ""
+    #     try:
+    #         with open(self.__file_path, "r", encoding="utf-8") as file:
+    #             json_string = file.read() #read the json into an empty string first because apparently json.dumping an empty file throws an error
+    #     except FileNotFoundError:
+    #         pass
+    #     if len(json_string) == 0:
+    #         return
+    #     dict_objects = json.loads(json_string)
+    #     for (key, value) in dict_objects.items():
+    #         self.__objects[key] = class_list[value["__class__"]](**value)
+
     def reload(self):
-        """ reloads data from disk when app is initialized """
-        class_list = {
-                "BaseModel":BaseModel
-        }
+        """Deserializes the JSON file to __objects only if the JSON file
+        (__file_path) exists ; otherwise, do nothing. If the file doesn’t
+        exist, no exception should be raised)
+        """
         try:
-            with open(self.__file_path, "r") as file:
-                json_string = file.read() #read the json into an empty string first because apparently json.dumping an empty file throws an error
-                if len(json_string) == 0:
-                    return
-                dict_objects = json.loads(json_string)
-                for (key, value) in dict_objects.items():
-                    self.__objects[key] = class_list[value["__class__"]](**value)
-        except FileNotFoundError:
-            pass
+            with open(self.__file_path, 'r', encoding='utf-8') as myFile:
+                my_obj_dump = myFile.read()
+        except Exception:
+            return
+        objects = eval(my_obj_dump)
+        for (key, value) in objects.items():
+            objects[key] = eval(key.split('.')[0] + '(**value)')
+        self.__objects = objects
 
     def delete(self, obj):
         """Deletes obj from __objects
