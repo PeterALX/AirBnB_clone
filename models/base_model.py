@@ -27,7 +27,7 @@ class BaseModel:
 
     def __str__(self):
         """ returns a string represantation of class """
-        return(f"[{self.__class__.__name__}] ({self.id}){self.__dict__}")
+        return(f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}")
 
     def save(self):
         """ updates a BaseModel instance's updated_at property and saves changes to disk when called"""

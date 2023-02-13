@@ -10,7 +10,7 @@ class FileStorage:
             reloading data from disk on app startup
             keeping disk storage up to date with the apps state
     """
-    __file_path = "database.json"
+    __file_path = "file.json"
     __objects = {}
 
     def __init__(self):
