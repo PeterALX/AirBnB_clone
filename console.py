@@ -90,5 +90,5 @@ class HBNBCommand(cmd.Cmd):
             return False # why return false here??? and not in the other methods????
 
 if __name__ == "__main__":
-    HBNBCommand().cmdloop()1
+    HBNBCommand().cmdloop()
 
