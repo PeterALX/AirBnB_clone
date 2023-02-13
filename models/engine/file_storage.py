@@ -75,4 +75,4 @@ class FileStorage:
             return True
         except Exception:
             return False
-1
+
