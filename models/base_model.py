@@ -36,7 +36,7 @@ class BaseModel:
 
     def to_dict(self):
         """ Returns a dictionary represantion of the class. This dictionary is used for serialization into json for storage in disk """
-        my_dict = dict(self.__dict__ ) #potential bugs here, consider doing a deepcopy instead
+        my_dict = self.__dict__.copy() #potential bugs here, consider doing a deepcopy instead
         my_dict["created_at"] = my_dict["created_at"].isoformat()
         my_dict["updated_at"] = my_dict["updated_at"].isoformat()
         my_dict["__class__"] = self.__class__.__name__
