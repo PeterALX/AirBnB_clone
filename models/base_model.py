@@ -4,10 +4,22 @@ from datetime import datetime
 
 
 class BaseModel:
-    def __init__(self):
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = self.created_at
+    def __init__(self, *ar, **kw)
+        if kw:
+            for k, v in kw.items():
+                #potential oversight: what if key is int
+                #potential oversight: test for a dict without expected
+                # keys/variables?
+                #should add these to tests?
+                if k in ['created_at', 'updated_at']:
+                    setattr(self, k, datetime.strptime(
+                        v, "%Y-%m-%dT%H:%M:%S.%f"))
+                elif k !='__class_':
+                    setattr(self, k, v)
+                else:
+                    self.id = str(uuid.uuid4())
+                    self.created_at = datetime.now()
+                    self.updated_at = self.created_at
 
     def __str__(self):
         return f'[{self.__class__.__name__}] ({self.id}) {self.__dict__}'
