@@ -9,8 +9,19 @@ The console allows a user to interact with the database
 from cmd import Cmd
 from models.base_model import BaseModel
 from models import storage
+import re
 
 classes = {"BaseModel": BaseModel}
+
+
+def parse_string(string):
+    # regular expression to match words within quotes and words without quotes
+    pattern = r'"([^"]*)"|(\S+)'
+    # Find all matches in the string
+    matches = re.findall(pattern, string)
+    # Concatenate the non-empty groups from the matches
+    result = [match[0] or match[1] for match in matches]
+    return result
 
 
 class HBNBCommand(Cmd):
@@ -88,6 +99,65 @@ class HBNBCommand(Cmd):
             print('** no instance found **')
         else:
             del models[f'{args[0]}.{args[1]}']
+            storage.save()
+
+    def do_all(self, arg):
+        """
+        Command: all
+
+        Description:
+        Prints all string representations of all instances of  <model_name>
+        if no model name is provided, prints all instances
+
+        Usage:
+        all [<model_name>]
+        """
+        if not arg:
+            models = storage.all()
+            st = [value.__str__() for value in models.values()]
+            print(st)
+        elif arg in classes:
+            models = storage.all()
+            st = [value.__str__() for value in models.values()
+                  if value.__class__.__name__ == arg]
+            print(st)
+        else:
+            print("** class doesn't exist **")
+
+    def do_update(self, arg):
+        """
+        Command: update
+
+        Description:
+        Updates an instance based on the model name and id
+        by adding or updating attribute
+
+        Usage:
+        update <model_name> <id> <attribute name> "<attribute value>"
+        """
+        if not arg:
+            print('** class name missing **')
+            return
+        args = parse_string(arg)
+        if args[0] not in classes:
+            print("** class doesn't exist **")
+            return
+        if len(args) < 2:
+            print('** instance id missing **')
+            return
+        models = storage.all()
+        if f'{args[0]}.{args[1]}' not in models:
+            print('** no instance found **')
+            return
+        instance = models[f'{args[0]}.{args[1]}']
+        if (len(args) < 3):
+            print('** attribute name missing **')
+            return
+        if (len(args) < 4):
+            print('** value missing **')
+            return
+        setattr(instance, args[2], args[3])
+        instance.save()
 
     def do_quit(self, arg):
         """quit command exits the program"""

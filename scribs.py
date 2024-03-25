@@ -1,10 +1,6 @@
 #!/usr/bin/python3
 
-d = {'a': [1, 2, 3], 'b': {1, 2, 3}}
+a = 'hello foo barr "hehe hihi"'
 
-b = d['a']
-print(d)
-del d['a']
-
-print(d)
+b = a.split()
 print(b)
