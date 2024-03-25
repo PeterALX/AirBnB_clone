@@ -11,6 +11,8 @@ class BaseModel:
                 # potential oversight: what if key is int
                 # potential oversight: test for a dict without the expected
                 #   keys/variables?
+                # potential oversight: test for a dict without expected
+                # keys/variables?
                 # should add these to tests?
                 if k in ['created_at', 'updated_at']:
                     setattr(self, k, datetime.strptime(
@@ -39,7 +41,3 @@ class BaseModel:
                 d[k] = v
         d['__class__'] = self.__class__.__name__
         return (d)
-        # d = {k: (v.isoformat() if isinstance(v, datetime) else v)
-        #      for k, v in self.__dict__.items()}
-        # d.update(__class__=self.__class__.__name__)
-        # return d
