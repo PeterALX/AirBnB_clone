@@ -20,7 +20,7 @@ class FileStorage:
             json_dict = {}
             for k, v in self.__objects.items():
                 json_dict[k] = v.to_dict()
-            json.dump(json_dict, f)
+            json.dump(json_dict, f, indent=2)
 
     def reload(self):
         try:
