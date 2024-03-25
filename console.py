@@ -1,4 +1,10 @@
 #!/usr/bin/python3
+"""
+This is the console.It is the entry point into this program
+The console allows a user to interact with the database
+    from the command line.
+    Viewing, creating and deleting models
+"""
 
 from cmd import Cmd
 from models.base_model import BaseModel
