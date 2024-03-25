@@ -26,9 +26,11 @@ class FileStorage:
         try:
             with open(self.__file_path, 'r') as f:
                 from models.base_model import BaseModel
+                from models.user import User
+                classes = {"BaseModel": BaseModel, "User": User}
                 # json data may be malformed, handle that? 👇
                 json_dict = json.load(f)
                 for k, v in json_dict.items():
-                    self.__objects[k] = BaseModel(**v)
+                    self.__objects[k] = classes[v['__class__']](**v)
         except FileNotFoundError:
             pass

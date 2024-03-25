@@ -8,10 +8,11 @@ The console allows a user to interact with the database
 
 from cmd import Cmd
 from models.base_model import BaseModel
+from models.user import User
 from models import storage
 import re
 
-classes = {"BaseModel": BaseModel}
+classes = {"BaseModel": BaseModel, 'User': User}
 
 
 def parse_string(string):
