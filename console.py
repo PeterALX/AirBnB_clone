@@ -62,6 +62,33 @@ class HBNBCommand(Cmd):
         else:
             print(models[f'{args[0]}.{args[1]}'])
 
+    def do_destroy(self, arg):
+        """
+        Command: destroy
+
+        Description:
+        Deletes an instance based on the class name and id
+        (saves the change into the JSON file)
+
+        Usage:
+        destroy <model_name> <id>
+        """
+        if not arg:
+            print('** class name missing **')
+            return
+        args = arg.split()
+        if args[0] not in classes:
+            print("** class doesn't exist **")
+            return
+        if len(args) < 2:
+            print('** instance id missing **')
+            return
+        models = storage.all()
+        if f'{args[0]}.{args[1]}' not in models:
+            print('** no instance found **')
+        else:
+            del models[f'{args[0]}.{args[1]}']
+
     def do_quit(self, arg):
         """quit command exits the program"""
         return True
