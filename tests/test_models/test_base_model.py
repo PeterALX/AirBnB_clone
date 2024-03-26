@@ -15,6 +15,12 @@ class TestBaseModel(unittest.TestCase):
     def test_init(self):
         self.assertIsInstance(self.base, BaseModel)
 
+    def test_kwargs_init(self):
+        model = BaseModel()
+        model_dict = model.to_dict()
+        model_clone = BaseModel(**model_dict)
+        self.assertFalse(model_clone is model)
+
     def test_to_dict(self):
         d = self.base.to_dict()
         self.assertIsInstance(d['created_at'], str)
