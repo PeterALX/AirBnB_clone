@@ -25,6 +25,7 @@ def parse_string(string):
     return result
 
 
+# ensure excess args result in error?
 class HBNBCommand(Cmd):
     prompt = '(hbnb) '
 

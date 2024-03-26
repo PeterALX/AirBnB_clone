@@ -15,6 +15,7 @@ class BaseModel:
                 # keys/variables?
                 # should add these to tests?
                 if k in ['created_at', 'updated_at']:
+                    # 👆what if other attrs are dates?
                     setattr(self, k, datetime.strptime(
                         v, "%Y-%m-%dT%H:%M:%S.%f"))
                 elif k != '__class__':
