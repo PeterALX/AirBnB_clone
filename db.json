@@ -1,0 +1,14 @@
+{
+  "BaseModel.0a88701d-c326-4b27-b4a3-99bccf40a2e6": {
+    "id": "0a88701d-c326-4b27-b4a3-99bccf40a2e6",
+    "created_at": "2024-03-26T16:58:02.016657",
+    "updated_at": "2024-03-26T16:58:02.016657",
+    "__class__": "BaseModel"
+  },
+  "BaseModel.c8ef1295-a9ec-4e21-8d7c-1796aa27d0a8": {
+    "id": "c8ef1295-a9ec-4e21-8d7c-1796aa27d0a8",
+    "created_at": "2024-03-26T16:58:02.016873",
+    "updated_at": "2024-03-26T16:58:02.016891",
+    "__class__": "BaseModel"
+  }
+}

@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import unittest
 from models.base_model import BaseModel
+import json
 
 
 # think about them tests
@@ -23,3 +24,10 @@ class TestBaseModel(unittest.TestCase):
     def test_str(self):
         string_rep = f'[BaseModel] ({self.base.id}) {self.base.__dict__}'
         self.assertEqual(str(self.base), string_rep)
+
+    def test_save(self):
+        self.base.save()
+        key = 'BaseModel' + "." + self.base.id
+        with open('db.json', 'r') as f:
+            j = json.load(f)
+            self.assertEqual(j[key], self.base.to_dict())
