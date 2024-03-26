@@ -170,9 +170,8 @@ class HBNBCommand(Cmd):
         if len(args) < 4:
             print('** value missing **')
             return
-        if not hasattr(instance, args[2]):  # check if attr exists in model?
-            # print(f'{args[0]} has no {args[2]}')
-            pass
+        # if not hasattr(instance, args[2]):  # check if attr exists in model?
+        #     # print(f'{args[0]} has no {args[2]}')
 
         # type checks here, currently only places model
         place_types = {
