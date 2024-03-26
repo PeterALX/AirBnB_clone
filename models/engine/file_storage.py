@@ -27,7 +27,20 @@ class FileStorage:
             with open(self.__file_path, 'r') as f:
                 from models.base_model import BaseModel
                 from models.user import User
-                classes = {"BaseModel": BaseModel, "User": User}
+                from models.place import Place
+                from models.state import State
+                from models.city import City
+                from models.amenity import Amenity
+                from models.review import Review
+                classes = {
+                    'Amenity': Amenity,
+                    'BaseModel': BaseModel,
+                    'City': City,
+                    'Place': Place,
+                    'Review': Review,
+                    'State': State,
+                    'User': User
+                }
                 # json data may be malformed, handle that? 👇
                 json_dict = json.load(f)
                 for k, v in json_dict.items():

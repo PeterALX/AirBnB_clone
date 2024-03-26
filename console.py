@@ -7,12 +7,24 @@ The console allows a user to interact with the database
 """
 
 from cmd import Cmd
-from models.base_model import BaseModel
-from models.user import User
 from models import storage
 import re
-
-classes = {"BaseModel": BaseModel, 'User': User}
+from models.base_model import BaseModel
+from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
+classes = {
+    'Amenity': Amenity,
+    'BaseModel': BaseModel,
+    'City': City,
+    'Place': Place,
+    'Review': Review,
+    'State': State,
+    'User': User
+}
 
 
 def parse_string(string):
@@ -152,14 +164,43 @@ class HBNBCommand(Cmd):
             print('** no instance found **')
             return
         instance = models[f'{args[0]}.{args[1]}']
-        if (len(args) < 3):
+        if len(args) < 3:
             print('** attribute name missing **')
             return
-        if (len(args) < 4):
+        if len(args) < 4:
             print('** value missing **')
             return
-        setattr(instance, args[2], args[3])
-        instance.save()
+        if not hasattr(instance, args[2]):  # check if attr exists in model?
+            # print(f'{args[0]} has no {args[2]}')
+            pass
+
+        # type checks here, currently only places model
+        place_types = {
+            'number_rooms': int,
+            'number_bathrooms': int,
+            'max_guest': int,
+            'price_by_night': int,
+            'latitude': float,
+            'longitude': float
+        }
+        if args[0] == 'Place' and args[2] in place_types:
+            expected_type = place_types[args[2]]
+            try:
+                val = expected_type(args[3])
+                setattr(instance, args[2], val)
+                instance.save()
+
+            except Exception:
+                print(f'{args[0]}.{args[2]} should be {expected_type}')
+            # number_rooms = 0
+            # number_bathrooms = 0
+            # max_guest = 0
+            # price_by_night = 0
+            # latitude = 0.0
+            # longitude = 0.0
+        else:
+            setattr(instance, args[2], args[3])
+            instance.save()
 
     def do_quit(self, arg):
         """quit command exits the program"""
