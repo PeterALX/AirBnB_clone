@@ -11,7 +11,7 @@ class TestBaseModel(unittest.TestCase):
     def tearDown(self):
         del self.base
 
-    def test_isinstance(self):
+    def test_init(self):
         self.assertIsInstance(self.base, BaseModel)
 
     def test_to_dict(self):
@@ -19,3 +19,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsInstance(d['created_at'], str)
         self.assertIsInstance(d['updated_at'], str)
         self.assertIsInstance(d['id'], str)
+
+    def test_str(self):
+        string_rep = f'[BaseModel] ({self.base.id}) {self.base.__dict__}'
+        self.assertEqual(str(self.base), string_rep)
